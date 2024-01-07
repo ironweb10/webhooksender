@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Webhook Sender</title>
   <link rel="icon" href="wallpaper.jpg" type="image/x-icon">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -34,6 +36,9 @@
     <label for="color">Color:</label>
     <input type="text" id="color" name="color" placeholder="Enter a color code" disabled><br><br>
 
+    <label for="image">Image URL:</label>
+    <input type="text" id="image" name="image"><br><br>
+
     <button type="submit">Send Message</button>
   </form>
 
@@ -44,6 +49,7 @@
     const titleInput = document.getElementById('title');
     const descriptionInput = document.getElementById('description');
     const colorInput = document.getElementById('color');
+    const imageInput = document.getElementById('image');
 
     embedCheckbox.addEventListener('change', () => {
       const sendAsEmbed = embedCheckbox.checked;
@@ -51,6 +57,7 @@
       titleInput.disabled = !sendAsEmbed;
       descriptionInput.disabled = !sendAsEmbed;
       colorInput.disabled = !sendAsEmbed;
+      imageInput.disabled = sendAsEmbed;
     });
 
     webhookForm.addEventListener('submit', async (e) => {
@@ -62,6 +69,7 @@
       const title = titleInput.value;
       const description = descriptionInput.value;
       const color = colorInput.value;
+      const imageUrl = imageInput.value;
 
       const data = {
         content: sendAsEmbed ? undefined : message,
@@ -71,6 +79,7 @@
                 title,
                 description,
                 color,
+                image: imageUrl ? { url: imageUrl } : undefined,
               },
             ]
           : undefined,
