@@ -57,7 +57,7 @@
       titleInput.disabled = !sendAsEmbed;
       descriptionInput.disabled = !sendAsEmbed;
       colorInput.disabled = !sendAsEmbed;
-      imageInput.disabled = sendAsEmbed;
+      imageInput.disabled = !sendAsEmbed; // Fix: should be enabled when sending as embed
     });
 
     webhookForm.addEventListener('submit', async (e) => {
